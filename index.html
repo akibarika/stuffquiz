@@ -2,7 +2,7 @@
 <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.load('current', {'packages': ['bar']});
         google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {
@@ -11,8 +11,10 @@
             data.addColumn('date', 'Date');
             data.addColumn('number', 'Score');
 
-            data.addRows([
-                [new Date(2020, 6, 10), 12], [new Date(2020, 6, 13), 9],[new Date(2020, 6, 14), 12]
+            data.addRows([]);
+            var data = google.visualization.arrayToDataTable([
+                ['Date', 'Score', 'Number of People'],
+                [new Date(2020, 6, 10), 12, 8], [new Date(2020, 6, 13), 9, 8], [new Date(2020, 6, 14), 12, 8], [new Date(2020, 6, 15), 12, 10]
             ]);
 
             var options = {
@@ -29,12 +31,12 @@
                 }
             };
 
-            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
+            var chart = new google.charts.Bar(document.getElementById('chart_div'));
+            chart.draw(data, google.charts.Bar.convertOptions(options));
         }
     </script>
 </head>
 <body>
-    <div id="chart_div"></div>
+<div id="chart_div"></div>
 </body>
 </html>
