@@ -1,26 +1,53 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Chart from "react-google-charts";
+import styled from "styled-components";
+import {Helmet} from "react-helmet";
 
-function App() {
+import Header from "./components/Header";
+import BarChart from "./components/BarChart";
+import Cards from "./components/Cards";
+import Data from "./Data";
+
+import './App.css';
+const Section = styled.section`
+    border-radius: 15px;
+    max-width: 1315px;
+    width: 96%;
+    margin: 35px auto;
+`
+const Container = styled.div`
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.06);
+    padding: 20px!important;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    flex-direction: row;
+`
+const numberOfQuiz = Data.length - 1, highestData = Data.slice(1).reduce((p, c) => p[1] > c[1] ? p : c),
+    highestScore = highestData[1], highestScoreTime = highestData[0].toLocaleDateString(),
+    averageScore = (Data.slice(1).reduce((sum, p) => sum + p[1], 0) / numberOfQuiz).toFixed(2),
+    averageAttendees = (Data.slice(1).reduce((sum, p) => sum + p[2], 0) / numberOfQuiz).toFixed(2);
+
+const App = () => {
     return (
-        <Chart
-            width={'900px'}
-            height={'500px'}
-            chartType="Bar"
-            loader={<div>Loading Chart</div>}
-            data={[
-                ['Date', 'Score', 'Number of People'],
-                [new Date(2020, 6, 10), 12, 8], [new Date(2020, 6, 13), 9, 8], [new Date(2020, 6, 14), 12, 8], [new Date(2020, 6, 15), 14, 10], [new Date(2020, 6, 16), 12, 10], [new Date(2020, 6, 17), 11, 11], [new Date(2020, 6, 21), 11, 9], [new Date(2020, 6, 22), 11, 9], [new Date(2020, 6, 23), 14, 10], [new Date(2020, 6, 24), 13, 8], [new Date(2020, 6, 27), 9, 9], [new Date(2020, 6, 28), 12, 10], [new Date(2020, 7, 4), 11, 10], [new Date(2020, 7, 5), 10, 10], [new Date(2020, 7, 6), 8, 11], [new Date(2020, 7, 7), 11, 11]
-            ]}
-            options={{
-                chart: {
-                    title: 'Team Avenger',
-                    subtitle: `Stuff Quiz Score`,
-                }
-            }}
-        />
+        <>
+            <Helmet>
+                <title>Team Avenger Scoreboard</title>
+            </Helmet>
+            <Header/>
+            <Section>
+                <Container>
+                    <Cards numberOfQuiz={numberOfQuiz} highestScore={highestScore} highestScoreTime={highestScoreTime} averageScore={averageScore} averageAttendees={averageAttendees}/>
+                </Container>
+            </Section>
+            <Section>
+                <Container>
+                    <BarChart/>
+                </Container>
+            </Section>
+
+        </>
     );
 }
 
