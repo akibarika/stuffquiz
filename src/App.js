@@ -5,6 +5,7 @@ import {Helmet} from "react-helmet";
 import Header from "./components/Header";
 import BarChart from "./components/BarChart";
 import Cards from "./components/Cards";
+import Full from "./components/Full";
 import Data from "./Data";
 
 import './App.css';
@@ -27,7 +28,8 @@ const Container = styled.div`
 const numberOfQuiz = Data.length - 1, highestData = Data.slice(1).reduce((p, c) => p[1] > c[1] ? p : c),
     highestScore = highestData[1], highestScoreTime = highestData[0].toLocaleDateString(),
     averageScore = (Data.slice(1).reduce((sum, p) => sum + p[1], 0) / numberOfQuiz).toFixed(2),
-    averageAttendees = (Data.slice(1).reduce((sum, p) => sum + p[2], 0) / numberOfQuiz).toFixed(2);
+    averageAttendees = (Data.slice(1).reduce((sum, p) => sum + p[2], 0) / numberOfQuiz).toFixed(2),
+    full = Data.filter((p) => p[1] === 15);
 
 const App = () => {
     return (
@@ -39,6 +41,11 @@ const App = () => {
             <Section>
                 <Container>
                     <Cards numberOfQuiz={numberOfQuiz} highestScore={highestScore} highestScoreTime={highestScoreTime} averageScore={averageScore} averageAttendees={averageAttendees}/>
+                </Container>
+            </Section>
+            <Section>
+                <Container>
+                    <Full full={full} />
                 </Container>
             </Section>
             <Section>

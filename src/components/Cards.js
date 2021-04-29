@@ -92,7 +92,7 @@ class Cards extends Component {
                                 <EmojiEvents style={{ color: '#f7a42c' }} fontSize="large"/>
                             </CardIcon>
                             <CardHeaderText>
-                                <CardText1>Highest</CardText1>
+                                <CardText1>Recent Highest</CardText1>
                                 <CardText2>{this.props.highestScore}</CardText2>
                                 <CardText3>{`on ${this.props.highestScoreTime}`}</CardText3>
                             </CardHeaderText>
